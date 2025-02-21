@@ -33,7 +33,7 @@ const Sidebar = () => {
     { id: 'Marketing & Promotions', icon: <CampaignRoundedIcon size={20} />, label: 'Marketing & Promotions' },
     { id: 'Users & Roles', icon: <GroupRoundedIcon size={20} />, label: 'Users & Roles' },
     { id: 'Store Setup & Branding', icon: <StorefrontRoundedIcon size={20} />, label: 'Store Setup & Branding' },
-    { id: 'System Settings', icon: <CreditCard size={20} />, label: 'System Settings' },
+    { id: 'System Settings', icon: <Settings size={20} />, label: 'System Settings' },
    
     { id: 'Dashboard', icon: <CreditCard size={20} />, label: 'Dashboard' },
     { id: 'Orders Management', icon: <CreditCard size={20} />, label: 'Orders Management' },

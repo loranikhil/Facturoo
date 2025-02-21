@@ -99,7 +99,35 @@ const Header = () => {
         </div>
       </div>
 
-      
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <List>
+          <ListItem button onClick={() => console.log('Add Manager clicked')}>
+            <ListItemIcon>
+              <PersonAdd />
+            </ListItemIcon>
+            <ListItemText primary="Add Manager" />
+          </ListItem>
+          <ListItem button onClick={() => console.log('Add Staff clicked')}>
+            <ListItemIcon>
+              <GroupAdd />
+            </ListItemIcon>
+            <ListItemText primary="Add Staff" />
+          </ListItem>
+        </List>
+      </Popover>
     </header>
   );
 };
