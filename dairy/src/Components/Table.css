@@ -1,0 +1,303 @@
+/* Table.css - Professional and responsive styling for the Table Management component */
+
+/* Main container */
+#table-management-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Header section */
+  #table-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  #table-management-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0;
+    color: #2c3e50;
+  }
+  
+  #refresh-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+  
+  #refresh-button:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+  }
+  
+  #refresh-button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Tab navigation */
+  #table-management-tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  #table-management-tabs button {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  #table-management-tabs button:hover {
+    color: #212529;
+  }
+  
+  #table-management-tabs button.active-tab {
+    color: #3498db;
+    font-weight: 600;
+  }
+  
+  #table-management-tabs button.active-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #3498db;
+  }
+  
+  /* Tables grid view */
+  #tables-grid-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  #tables-grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  
+  .table-card {
+    padding: 1.25rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .table-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table-card.available {
+    background-color: #e8f5e9;
+    border: 1px solid #c8e6c9;
+  }
+  
+  .table-card.occupied {
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+  }
+  
+  .table-number {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  
+  .table-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d;
+  }
+  
+  .table-card.available .table-status {
+    color: #2e7d32;
+  }
+  
+  .table-card.occupied .table-status {
+    color: #c62828;
+  }
+  
+  .table-actions {
+    margin-top: 0.5rem;
+  }
+  
+  .free-table-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .free-table-btn:hover {
+    background-color: #43a047;
+  }
+  
+  .free-table-btn:active {
+    transform: scale(0.98);
+  }
+  
+  /* Orders view */
+  #orders-container {
+    width: 100%;
+  }
+  
+  #no-orders-message {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-size: 1.1rem;
+    font-style: italic;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px dashed #dee2e6;
+  }
+  
+  #orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .order-card {
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .order-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .order-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  
+  .order-time {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+  
+  .order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    padding: 0.25rem 0;
+  }
+  
+  .order-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .order-actions {
+    margin-top: 0.5rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #table-management-container {
+      padding: 1.6rem;
+    }
+    
+    #table-management-header h1 {
+      font-size: 1.5rem;
+    }
+    
+    #tables-grid-view {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    
+    #orders-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #table-management-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    #table-management-tabs button {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .table-card {
+      padding: 1rem;
+    }
+    
+    .order-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }

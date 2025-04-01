@@ -1,0 +1,206 @@
+/* QuickActions.css */
+.quick-actions-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .quick-actions-header {
+    margin-bottom: 2rem;
+  }
+  
+  .quick-actions-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+  
+  .quick-actions-header p {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+  
+  .quick-actions-cards {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  /* Team Members Card */
+  .action-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+  }
+  
+  .action-card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .user-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+  
+  .user-item:hover {
+    background-color: #f9fafb;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #f3f4f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 1rem;
+  }
+  
+  .status-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  
+  .status-indicator.online {
+    background-color: #10b981; /* Green for online */
+  }
+  
+  .status-indicator.offline {
+    background-color: #ef4444; /* Red for offline */
+  }
+  
+  .user-info {
+    flex: 1;
+  }
+  
+  .user-info h3 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1f2937;
+    margin: 0;
+  }
+  
+  .user-info p {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 0;
+  }
+  
+  .action-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  /* Actions Panel */
+  .actions-panel {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+  }
+  
+  .action-group h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .action-item {
+    display: flex;
+    align-items: center;
+    padding: 0.875rem;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .action-item:hover {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+  }
+  
+  .action-item svg {
+    color: #4b5563;
+    margin-right: 0.75rem;
+  }
+  
+  .action-item span {
+    font-weight: 500;
+    color: #4b5563;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 1024px) {
+    .quick-actions-container {
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .quick-actions-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .action-card,
+    .actions-panel {
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .quick-actions-container {
+      padding: 1rem;
+    }
+    
+    .quick-actions-header h1 {
+      font-size: 1.5rem;
+    }
+  }

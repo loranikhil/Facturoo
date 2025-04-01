@@ -1,63 +1,80 @@
-import React from 'react';
-
-import { Home, ShoppingCart, CreditCard, Gift, Trophy, HeadphonesIcon, Settings} from 'lucide-react';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
-import CurrencyRupeeSharpIcon from '@mui/icons-material/CurrencyRupeeSharp';
-import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded';
-import CampaignRoundedIcon from '@mui/icons-material/CampaignRounded';
-import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
-import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
-
-import './Sidebar.css';
-
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  User,Home,
+  ShoppingCart,
+  CreditCard,
+  Gift,
+  Trophy,
+  Headphones,
+  Settings,
+  BarChart2,
+  Table,
+} from "lucide-react";
+import "./Sidebar.css";
 
 const Sidebar = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const currentTheme = document.body.getAttribute("data-theme");
+    if (currentTheme) {
+      setDarkMode(currentTheme === "dark");
+    } else {
+      setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "data-theme") {
+          setDarkMode(document.body.getAttribute("data-theme") === "dark");
+        }
+      });
+    });
+
+    observer.observe(document.body, { attributes: true });
+    return () => observer.disconnect();
+  }, []);
+
+  
   const sidebarItems = [
-    { id: 'customer', icon: <Home size={20} />, label: 'Customer' },
-    { id: 'orders', icon: <ShoppingCart size={20} />, label: 'My Orders' },
-    { id: 'payments', icon: <CreditCard size={20} />, label: 'Payments & Bills' },
-    { id: 'offers', icon: <Gift size={20} />, label: 'Offers & Discounts' },
-    { id: 'loyalty', icon: <Trophy size={20} />, label: 'Loyalty Program' },
-    { id: 'support', icon: <HeadphonesIcon size={20} />, label: 'Support & Feedback' },
-    { id: 'settings', icon: <Settings size={20} />, label: 'Settings' },
-    
-    { id: 'Dashboard', icon: <Home size={20} />, label: 'Dashboard' },
-    {id: 'InventoryManagement', icon: <Inventory2Icon size={20} />, label: 'InventoryManagement' },
-    {id: 'Orders&Sales', icon: <ReceiptOutlinedIcon size={20} />, label: 'Orders&Sales' },
-    {id: 'Billing&Invoices', icon: <DescriptionRoundedIcon size={20} />, label: 'Billing&Invoices'},
-    { id: 'Payments', icon: <CreditCard size={20} />, label: 'Payments & Bills' },
-    { id: 'Reports&Analytics', icon: <BarChartRoundedIcon size={20} />, label: 'Reports&Analytics' },
-    { id: 'Marketing & Promotions', icon: <CampaignRoundedIcon size={20} />, label: 'Marketing & Promotions' },
-    { id: 'Users & Roles', icon: <GroupRoundedIcon size={20} />, label: 'Users & Roles' },
-    { id: 'Store Setup & Branding', icon: <StorefrontRoundedIcon size={20} />, label: 'Store Setup & Branding' },
-    { id: 'System Settings', icon: <Settings size={20} />, label: 'System Settings' },
-   
-    { id: 'Dashboard', icon: <CreditCard size={20} />, label: 'Dashboard' },
-    { id: 'Orders Management', icon: <CreditCard size={20} />, label: 'Orders Management' },
-    { id: 'Stock & Inventory', icon: <CreditCard size={20} />, label: 'Stock & Inventory' },
-    { id: 'Sales Reports', icon: <CreditCard size={20} />, label: 'Sales Reports' },
-    { id: 'Customer Queries & Feedback', icon: <CreditCard size={20} />, label: 'Customer Queries & Feedback' },
-    { id: 'Refunds & Cancellations', icon: <CreditCard size={20} />, label: 'Refunds & Cancellations' },
-    
-    
+    { id: "customer", icon: <User size={20} />, label: "Customer", path: "/Customer" },
+    { id: "MyOrders", icon: <ShoppingCart size={20} />, label: "My Orders", path: "/MyOrders" },
+    { id: "payments", icon: <CreditCard size={20} />, label: "Payments & Bills", path: "/payments" },
+    { id: "OffersPage", icon: <Gift size={20} />, label: "Offers & Discounts", path: "/OffersPage" },
+    { id: "loyalty", icon: <Trophy size={20} />, label: "Loyalty Program", path: "/loyalty" },
+    { id: "support", icon: <Headphones size={20} />, label: "Support & Feedback", path: "/support" },
+    { id: "settings", icon: <Settings size={20} />, label: "Settings", path: "/settings" },
+    { id: "dashboard", icon: <Home size={20} />, label: "Dashboard", path: "/admin" },
+    { id: "Inventory", icon: <ShoppingCart size={20} />, label: "Inventory Management", path: "/Inventory" },
+    { id: "Table", icon: <Table size={20} />, label: "Manage Tables", path: "/Table" },
+    { id: "sales", icon: <ShoppingCart size={20} />, label: "Orders & Sales", path: "/sales" },
+    { id: "Bill", icon: <CreditCard size={20} />, label: "Billing & Invoices", path: "/Bill" },
+    { id: "reports", icon: <BarChart2 size={20} />, label: "Reports & Analytics", path: "/reports" },
+    { id: "marketing", icon: <Gift size={20} />, label: "Marketing & Promotions", path: "/marketing" },
+    { id: "users", icon: <Home size={20} />, label: "Users & Roles", path: "/users" },
+    { id: "branding", icon: <Settings size={20} />, label: "Store Setup & Branding", path: "/branding" },
+    { id: "system", icon: <Settings size={20} />, label: "System Settings", path: "/system" },
+    { id: "orders", icon: <ShoppingCart size={20} />, label: "Orders Management", path: "/orders" },
+    { id: "stock", icon: <ShoppingCart size={20} />, label: "Stock & Inventory", path: "/stock" },
+    { id: "sales-reports", icon: <BarChart2 size={20} />, label: "Sales Reports", path: "/sales-reports" },
+    { id: "queries", icon: <Headphones size={20} />, label: "Queries & Feedback", path: "/queries" },
+    { id: "refunds", icon: <CreditCard size={20} />, label: "Refunds & Cancellations", path: "/refunds" },
+    { id: "staff", icon: <Trophy size={20} />, label: "Staff Performance & Attendance", path: "/staff" },
   ];
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar scrollbar-auto ${darkMode ? "dark-theme" : "light-theme"}`}>
       <div className="sidebar-content">
         <nav>
           {sidebarItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className="sidebar-item"
-            >
+            <Link key={item.id} to={item.path} className="sidebar-item">
               <span className="icon">{item.icon}</span>
               <span className="label">{item.label}</span>
-            </a>
+            </Link>
           ))}
         </nav>
       </div>

@@ -1,70 +1,154 @@
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 70px;
-    background: #fff;
-    border-right: 1px solid #e2e8f0;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+.sidebar {     
+  position: fixed;     
+  left: 0;     
+  top: 0;     
+  height: 100vh;     
+  width: 70px;     
+  background: #fff;     
+  border-right: 1px solid #e2e8f0;     
+  transition: width 0.3s ease;               
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+}   
+
+.scrollbar-auto {     
+  scrollbar-width: none;     
+  color: inherit;     
+  overflow-y: scroll;     
+  overflow-x: hidden; 
+}   
+
+.scrollbar-auto::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar:hover {     
+  width: 290px;     
+}      
+
+.sidebar-content {     
+  margin-top: 50px;     
+  padding: 20px 0;     
+  width: 310px;    
+}      
+
+.sidebar-item {     
+  display: flex;     
+  align-items: center;     
+  padding: 12px 20px;     
+  color: #1a202c;     
+  text-decoration: none;     
+  transition: all 0.3s ease;     
+  white-space: nowrap;   
+}      
+
+.sidebar-item:hover {     
+  background: #f7fafc;     
+  color: #4299e1;   
+}      
+
+.sidebar-item .icon {     
+  min-width: 30px;     
+  display: flex;     
+  align-items: center;     
+  justify-content: center;   
+}      
+
+.sidebar-item .label {     
+  margin-left: 12px;     
+  opacity: 0;     
+  transition: opacity 0.3s ease;   
+}      
+
+.sidebar:hover .sidebar-item .label {     
+  opacity: 1;   
+}
+
+
+.dark-theme {
+  background: #121212; 
+  border-right-color: #000000;
+}
+
+.dark-theme .sidebar-item {
+  color: #ffffff;
+}
+
+.dark-theme .sidebar-item:hover {
+  background: #2d3748;
+  color: #63b3ed;
+}
+
+.dark-theme .sidebar-item .icon svg {
+  stroke: #ffffff; 
+}
+
+.dark-theme .sidebar-item:hover .icon svg {
+  stroke: #63b3ed;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .sidebar:not(.light-theme) {
+    background: #121212;
+    border-right-color: #2d3748;
   }
   
-  .sidebar:hover {
-    width: 250px;
+  .sidebar:not(.light-theme) .sidebar-item {
+    color: #ffffff;
   }
   
-  .sidebar-content {
-    padding: 20px 0;
-    width: 250px; 
+  .sidebar:not(.light-theme) .sidebar-item:hover {
+    background: #2d3748;
+    color: #63b3ed;
   }
   
-  .sidebar-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    color: #1a202c;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
+  .sidebar:not(.light-theme) .sidebar-item .icon svg {
+    stroke: #ffffff;
   }
-  
-  .sidebar-item:hover {
-    background: #f7fafc;
-    color: #4299e1;
-  }
-  
-  .sidebar-item .icon {
-    min-width: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sidebar-item .label {
-    margin-left: 12px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .sidebar:hover .sidebar-item .label {
-    opacity: 1;
-  }
-  
-  
-  @media (prefers-color-scheme: dark) {
-    .sidebar {
-      background: #1a202c;
-      border-right-color: #2d3748;
-    }
-  
-    .sidebar-item {
-      color: #e2e8f0;
-    }
-  
-    .sidebar-item:hover {
-      background: #2d3748;
-      color: #63b3ed;
-    }
-  }
+}
+
+
+body[data-theme="dark"] .sidebar:not(.dark-theme) {
+  background: #121212; 
+  border-right-color: #000000;
+}
+
+body[data-theme="dark"] .sidebar:not(.dark-theme) .sidebar-item {
+  color: #ffffff; 
+}
+
+body[data-theme="dark"] .sidebar:not(.dark-theme) .sidebar-item .icon svg {
+  stroke: #ffffff; 
+}
+
+body[data-theme="dark"] .sidebar:not(.dark-theme) .sidebar-item:hover {
+  background: #000000;
+  color: #63b3ed;
+}
+
+body[data-theme="dark"] .sidebar:not(.dark-theme) .sidebar-item:hover .icon svg {
+  stroke: #63b3ed;
+}
+
+body[data-theme="light"] .sidebar:not(.light-theme) {
+  background: #fff;
+  border-right-color: #e2e8f0;
+}
+
+body[data-theme="light"] .sidebar:not(.light-theme) .sidebar-item {
+  color: #1a202c;
+}
+
+body[data-theme="light"] .sidebar:not(.light-theme) .sidebar-item .icon svg {
+  stroke: #1a202c;
+}
+
+body[data-theme="light"] .sidebar:not(.light-theme) .sidebar-item:hover {
+  background: #f7fafc;
+  color: #4299e1;
+}
+
+body[data-theme="light"] .sidebar:not(.light-theme) .sidebar-item:hover .icon svg {
+  stroke: #4299e1;
+}

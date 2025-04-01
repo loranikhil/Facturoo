@@ -1,24 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Sun, Moon, MapPin, Zap, BarChart2, Bell, MessageCircle, User } from 'lucide-react';
-import { Search } from 'lucide-react';
+import { SearchOutlined } from '@mui/icons-material';
 import { Popover, Tooltip } from '@mui/material';
-import { IoIosPersonAdd } from "react-icons/io";
 import { ImUsers } from "react-icons/im";
+import { IoIosPersonAdd } from "react-icons/io";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useNavigate } from 'react-router-dom';
 
 import './Header.css';
 
-
 const Header = () => {
-  const navigate = useNavigate();
   const [isDark, setIsDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [circleAnchorEl, setCircleAnchorEl] = useState(null);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
-  const searchInputRef = useRef(null);
-  
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -27,25 +23,11 @@ const Header = () => {
       time: "10 minutes ago",
       read: false
     },
-    {
-      id: 2,
-      title: "System",
-      message: "New update available",
-      time: "1 hour ago",
-      read: false
-    },
-    {
-      id: 3,
-      title: "Admin",
-      message: "Monthly report is ready",
-      time: "Yesterday",
-      read: true
-    }
   ]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -57,30 +39,13 @@ const Header = () => {
     setIsDark(prefersDark);
     document.body.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
   }, []);
-  
-  useEffect(() => {
-    if (isSearchOpen && searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  }, [isSearchOpen]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
     document.body.setAttribute('data-theme', !isDark ? 'dark' : 'light');
   };
-  
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-    if (!isSearchOpen && searchInputRef.current) {
-      setTimeout(() => {
-        searchInputRef.current.focus();
-      }, 300);
-    }
-  };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  
 
   const handleCircleClick = (event) => {
     setCircleAnchorEl(event.currentTarget);
@@ -110,16 +75,14 @@ const Header = () => {
     setNotifications(notifications.map(notification => ({ ...notification, read: true })));
   };
 
-  const deleteNotification = (notificationId, event) => {
-    event.stopPropagation();
+  const deleteNotification = (notificationId) => {
     setNotifications(notifications.filter(notification => notification.id !== notificationId));
   };
-
   const handleQuickActionsClick = () => {
     console.log("Navigating to Quick Actions");
     navigate('/quick-actions');
   };
-
+  
   const circleOpen = Boolean(circleAnchorEl);
   const circleId = circleOpen ? 'circle-popover' : undefined;
   
@@ -130,8 +93,12 @@ const Header = () => {
 
   const navigationItems = [
     { id: 'location', icon: <MapPin />, label: 'Location' },
+    { id: 'theme', icon: isDark ? <Sun /> : <Moon />, label: isDark ? 'Light Mode' : 'Dark Mode', onClick: toggleTheme },
+    { id: 'circle', icon: <AddCircleOutlineIcon />, label: 'Circle', onClick: handleCircleClick },
     { id: 'quick-actions', icon: <Zap />, label: 'QuickActions', onClick: handleQuickActionsClick },
+    
     { id: 'sales', icon: <BarChart2 />, label: 'Sales' },
+    
     { 
       id: 'notifications', 
       icon: <Bell />, 
@@ -140,107 +107,101 @@ const Header = () => {
       badge: unreadCount > 0 ? unreadCount : null
     },
     { id: 'support', icon: <MessageCircle />, label: 'Support' },
-    { id: 'theme', icon: isDark ? <Sun /> : <Moon />, label: isDark ? 'Light Mode' : 'Dark Mode', onClick: toggleTheme },
-    { id: 'circle', icon: <IoIosPersonAdd />, label: 'Circle', onClick: handleCircleClick },
     { id: 'user', icon: <User />, label: 'User Profile' }
   ];
 
   return (
-    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+    <header className={`header theme-transition ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
         <div className="header-content">
           <div className="left-section">
-            <a href="/" className="logo">
-              <span className="logo-text">Facturo</span>
-              <span className="logo-dot"></span>
+            <a href="/" className="logo theme-transition">
+              Facturo
             </a>
-            
-            <div className="search-wrapper">
-              <button
-                className="search-toggle"
-                aria-label="Toggle search"
-                onClick={toggleSearch}
-              >
-                <Search />
-              </button>
-              <div className={`search-bar ${isSearchOpen ? 'open' : ''}`}>
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search..."
-                  className="search-input"
-                  aria-label="Search input"
-                />
-              </div>
-            </div>
+            <div
+      className="search-wrapper"
+      onMouseEnter={() => setIsSearchOpen(true)}
+      onMouseLeave={() => setIsSearchOpen(false)}
+    >
+      <button
+        className="icon-button search-toggle"
+        aria-label="Toggle search"
+        onClick={() => setIsSearchOpen((prev) => !prev)}
+      >
+        <SearchOutlined />
+      </button>
+      <div className={`search-bar ${isSearchOpen ? "open" : ""}`}>
+        <input
+          type="text"
+          placeholder="Search..."
+          className="search-input"
+          aria-label="Search input"
+          autoFocus={isSearchOpen} 
+        />
+      </div>
+    </div>
           </div>
 
-          <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-
-          <nav className={`nav-container ${isMenuOpen ? 'menu-open' : ''}`} role="navigation">
+          <nav className="nav-container" role="navigation">
             {navigationItems.map(({ id, icon, label, onClick, badge }) => (
               <div key={id} className="nav-item">
                 <button
-                  className={`icon-button ${badge ? 'has-badge' : ''}`}
+                  className={`icon-button ${id === 'notifications' && badge ? 'has-badge' : ''}`}
                   aria-label={label}
-                  onClick={onClick || (() => {})}
-                  title={label}
+                  onClick={onClick || (() => console.log(`${label} clicked`))}
                 >
                   {icon}
                   {badge != null && (
                     <span className="badge">{badge}</span>
                   )}
                 </button>
-                <span className="tooltip">{label}</span>
+                <span className="tooltip" role="tooltip">
+                  {label}
+                </span>
               </div>
             ))}
           </nav>
         </div>
       </div>
 
-      {/* Circle Popover */}
-      <Popover
-        id={circleId}
-        open={circleOpen}
-        anchorEl={circleAnchorEl}
-        onClose={handleCloseCircle}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        PaperProps={{
-          className: 'popover-paper'
-        }}
+      
+<Popover
+  id={circleId}
+  open={circleOpen}
+  anchorEl={circleAnchorEl}
+  onClose={handleCloseCircle}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'center',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'center',
+  }}
+  PaperProps={{
+    className: 'popover-paper'
+  }}
+>
+  <div className="icon-popover-container">
+    <Tooltip title="Add Manager" placement="bottom">
+      <button 
+        className="icon-popover-button"
+        onClick={() => console.log('Add Manager clicked')}
       >
-        <div className="icon-popover-container">
-          <Tooltip title="Add Manager" placement="bottom">
-            <button 
-              className="icon-popover-button"
-              onClick={() => console.log('Add Manager clicked')}
-            >
-              <IoIosPersonAdd />
-            </button>
-          </Tooltip>
-          <Tooltip title="Add Staff" placement="bottom">
-            <button 
-              className="icon-popover-button"
-              onClick={() =>  navigate('/StaffEntryForm')}
-            >
-              <ImUsers />
-            </button>
-          </Tooltip>
-        </div>
-      </Popover>
+        <IoIosPersonAdd />
+      </button>
+    </Tooltip>
+    <Tooltip title="Add Staff" placement="bottom">
+      <button 
+        className="icon-popover-button"
+        onClick={() => console.log('Add Staff clicked')}
+      >
+        <ImUsers />
+      </button>
+    </Tooltip>
+  </div>
+</Popover>
 
-      {/* Notifications Popover */}
       <Popover
         id={notificationId}
         open={notificationOpen}
@@ -248,11 +209,11 @@ const Header = () => {
         onClose={handleCloseNotifications}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'right',
+          horizontal: 'center',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'right',
+          horizontal: 'center',
         }}
         PaperProps={{
           className: 'notification-popover-paper'
@@ -286,8 +247,10 @@ const Header = () => {
                   </div>
                   <button 
                     className="notification-delete"
-                    onClick={(e) => deleteNotification(notification.id, e)}
-                    aria-label="Delete notification"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteNotification(notification.id);
+                    }}
                   >
                     &times;
                   </button>

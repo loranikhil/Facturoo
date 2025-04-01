@@ -1,0 +1,442 @@
+:root {
+    --primary-color: #ff5a5f;
+    --secondary-color: #ffc107;
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --gray: #6c757d;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+  }
+  
+  #offersPage {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  #heroSection {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    padding: 25px 20px;
+    text-align: center;
+    color: var(--white);
+    border-radius: 0 0 0 o;
+    margin: 15px 20px 20px 20px;
+    border-radius: 10px;
+  }
+  
+  #heroContent {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  #heroContent h1 {
+    font-size: 42px;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  
+  #heroContent p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+  
+  #searchContainer {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  #searchInput {
+    width: 100%;
+    padding: 16px 60px 16px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    box-shadow: var(--shadow);
+    outline: none;
+  }
+  
+  #searchButton {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--white);
+    font-size: 18px;
+  }
+
+  #filtersContainer {
+    padding: 0 20px;
+    margin-bottom: 30px;
+  }
+  
+  #filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #filterBtn, #filterBtnActive {
+    background: var(--light-gray);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+  
+  #filterBtnActive {
+    background: var(--primary-color);
+    color: var(--white);
+  }
+
+  #offersContainer {
+    padding: 0 20px;
+    margin-bottom: 60px;
+  }
+  
+  #offersGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+  }
+  
+  [id^="offerCard-"] {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  [id^="offerCard-"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  [id^="exclusiveTag-"], [id^="expiringTag-"] {
+    position: absolute;
+    top: 15px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    z-index: 1;
+  }
+  
+  [id^="exclusiveTag-"] {
+    background-color: var(--primary-color);
+    color: var(--white);
+    left: 15px;
+  }
+  
+  [id^="expiringTag-"] {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    right: 15px;
+  }
+  
+  [id^="offerImage-"] {
+    height: 180px;
+    overflow: hidden;
+  }
+  
+  [id^="offerImage-"] img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  [id^="offerCard-"]:hover [id^="offerImage-"] img {
+    transform: scale(1.05);
+  }
+  
+  [id^="offerContent-"] {
+    padding: 20px;
+  }
+  
+  [id^="offerTitle-"] {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+  }
+  
+  [id^="restaurantName-"] {
+    color: var(--gray);
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  
+  [id^="offerDescription-"] {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: var(--text-color);
+  }
+  
+  [id^="offerDetails-"] {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  
+  [id^="offerDetails-"] p {
+    margin: 0;
+  }
+  
+  [id^="offerCodeContainer-"] {
+    display: flex;
+    align-items: center;
+    background-color: var(--light-gray);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    justify-content: space-between;
+  }
+  
+  [id^="offerCode-"] {
+    font-family: monospace;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 16px;
+    color: var(--primary-color);
+  }
+  
+  [id^="copyBtn-"] {
+    background: transparent;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  [id^="copyBtn-"]:hover {
+    background: var(--gray);
+    color: var(--white);
+  }
+  
+  [id^="applyBtn-"] {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  [id^="applyBtn-"]:hover {
+    background-color: #e63946;
+  }
+
+  #loadingContainer {
+    text-align: center;
+    padding: 60px 0;
+  }
+  
+  #loader {
+    border: 5px solid var(--light-gray);
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  #noOffers {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--gray);
+  }
+
+  #newsletterSection {
+    background-color: var(--light-gray);
+    padding: 60px 20px;
+    margin-bottom: 60px;
+  }
+  
+  #newsletterContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  #newsletterContent h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  #newsletterContent p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: var(--gray);
+  }
+  
+  #newsletterForm {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  #newsletterInput {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 30px 0 0 30px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  
+  #newsletterBtn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 0 30px 30px 0;
+    padding: 0 25px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #newsletterBtn:hover {
+    background-color: #e63946;
+  }
+  
+  /* FAQ Section */
+  #faqSection {
+    padding: 0 20px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  #faqSection h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+  
+  #faqContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  [id^="faqItem"] {
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+  }
+  
+  [id^="faqItem"] summary {
+    padding: 18px 20px;
+    cursor: pointer;
+    position: relative;
+    font-weight: 500;
+    list-style: none;
+  }
+  
+  [id^="faqItem"] summary::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  [id^="faqItem"][open] summary::after {
+    content: '-';
+  }
+  
+  [id^="faqItem"] p {
+    padding: 0 20px 20px;
+    margin: 0;
+    color: var(--gray);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #heroContent h1 {
+      font-size: 32px;
+    }
+    
+    #offersGrid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    #newsletterForm {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    #newsletterInput, #newsletterBtn {
+      width: 100%;
+      border-radius: 30px;
+    }
+    #newsletterBtn {
+      height: 40px;
+    }
+    
+    [id^="offerDetails-"] {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #heroSection {
+      height: auto;
+    padding: 0.625rem 1rem;
+    margin: 10px 20px 30px 18px;
+    border-radius: 5px;
+    }
+    
+    #heroContent h1 {
+      font-size: 28px;
+    }
+    
+    #offersGrid {
+      grid-template-columns: 1fr;
+    }
+    
+    #filterBtn, #filterBtnActive {
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+  }
