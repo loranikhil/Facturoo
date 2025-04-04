@@ -1,0 +1,189 @@
+.marketing {
+    font-family: 'Inter', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top:40px;
+  }
+  
+  .marketing h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .marketing-icon {
+    margin-right: 10px;
+  }
+  
+
+  .promo-carousel-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .promo-carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+  }
+  
+  .promo-card {
+    flex: 0 0 100%;
+    color: white;
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .promo-content {
+    padding: 28px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .promo-icon {
+    font-size: 2.5rem;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+  
+  .promo-details {
+    flex: 1;
+  }
+  
+  .promo-details h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .promo-details p {
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  
+  .promo-code {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 1rem;
+  }
+  
+  .promo-code span {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+
+  .promo-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+  }
+  
+  .promo-dots {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .promo-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .promo-dot.active {
+    background: #666;
+    transform: scale(1.2);
+  }
+  
+  .promo-arrows {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .promo-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    color: #333;
+  }
+  
+  .promo-arrow:hover {
+    background: #e0e0e0;
+  }
+  
+
+  @media (max-width: 768px) {
+    .promo-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 24px 20px;
+    }
+    
+    .promo-icon {
+      margin: 0 0 16px 0;
+      font-size: 2rem;
+    }
+    
+    .promo-details h2 {
+      font-size: 1.3rem;
+    }
+    
+    .promo-details p {
+      font-size: 1rem;
+    }
+    
+    .promo-controls {
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .promo-arrows {
+      margin-top: 8px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .marketing h1 {
+      font-size: 1.5rem;
+    }
+    
+    .promo-content {
+      padding: 20px 16px;
+    }
+    
+    .promo-code {
+      font-size: 0.9rem;
+      padding: 6px 8px;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    
+    .promo-arrows {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }

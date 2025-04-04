@@ -2,7 +2,7 @@
   background-color: #fff;
 }
 .quick-actions-container {
-    max-width: 1400px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 2rem;
     background-color: #fff;
@@ -17,11 +17,13 @@
     font-weight: 600;
     color: #1f2937;
     margin-bottom: 0.5rem;
+    text-align: center;
   }
   
   .quick-actions-header p {
     color: #6b7280;
     font-size: 1rem;
+    text-align: center;
   }
   
   .quick-actions-cards {

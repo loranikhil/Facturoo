@@ -102,9 +102,9 @@ const Bill = () => {
                 <div>
                   <p><span className="label">Date:</span> {formatDate(bill.orderTime)}</p>
                 </div>
-                <div className="bill-total-preview">
+                {/* <div className="bill-total-preview">
                   <p><span className="label">Total:</span> Rs. {(calculateSubtotal(bill.items) + calculateTax(calculateSubtotal(bill.items))).toFixed(2)}</p>
-                </div>
+                </div> */}
               </div>
 
               <div className="table-container">

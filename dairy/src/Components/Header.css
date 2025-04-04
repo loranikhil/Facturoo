@@ -604,7 +604,6 @@
   }
 }
 
-/* Focus states for accessibility */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
@@ -612,7 +611,7 @@ input:focus-visible {
   outline-offset: 2px;
 }
 
-/* Better scrollbar styling */
+
 .notification-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -785,7 +784,7 @@ input:focus-visible {
   color: var(--dark-text-secondary, #9ca3af);
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 480px) {
   .profile-popover-paper {
     width: calc(100% - 32px);
