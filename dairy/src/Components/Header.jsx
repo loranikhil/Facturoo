@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, MapPin, Zap, BarChart2, Bell, MessageCircle, User } from 'lucide-react';
+import { Sun, Moon, MapPin, Zap, BarChart2, Bell, MessageCircle, User, LogOut, Phone, Mail } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { Popover, Tooltip } from '@mui/material';
 import { IoIosPersonAdd } from "react-icons/io";
@@ -17,6 +17,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [circleAnchorEl, setCircleAnchorEl] = useState(null);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const searchInputRef = useRef(null);
   
   const [notifications, setNotifications] = useState([
@@ -42,6 +43,12 @@ const Header = () => {
       read: true
     }
   ]);
+
+  const userProfile = {
+    name: "Nikhil",
+    phone: "+91 9999000000",
+    email: "nik@gmail.com"
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,12 +97,27 @@ const Header = () => {
     setNotificationAnchorEl(event.currentTarget);
   };
 
+  const handleProfileClick = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+
   const handleCloseCircle = () => {
     setCircleAnchorEl(null);
   };
 
   const handleCloseNotifications = () => {
     setNotificationAnchorEl(null);
+  };
+
+  const handleCloseProfile = () => {
+    setProfileAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    console.log("Logging out...");
+    
+    navigate('/login');
+    handleCloseProfile();
   };
 
   const markAsRead = (notificationId) => {
@@ -125,6 +147,9 @@ const Header = () => {
   
   const notificationOpen = Boolean(notificationAnchorEl);
   const notificationId = notificationOpen ? 'notification-popover' : undefined;
+
+  const profileOpen = Boolean(profileAnchorEl);
+  const profileId = profileOpen ? 'profile-popover' : undefined;
   
   const unreadCount = notifications.filter(notification => !notification.read).length;
 
@@ -142,7 +167,7 @@ const Header = () => {
     { id: 'support', icon: <MessageCircle />, label: 'Support' },
     { id: 'theme', icon: isDark ? <Sun /> : <Moon />, label: isDark ? 'Light Mode' : 'Dark Mode', onClick: toggleTheme },
     { id: 'circle', icon: <IoIosPersonAdd />, label: 'Circle', onClick: handleCircleClick },
-    { id: 'user', icon: <User />, label: 'User Profile' }
+    { id: 'user', icon: <User />, label: 'User Profile', onClick: handleProfileClick }
   ];
 
   return (
@@ -202,7 +227,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Circle Popover */}
       <Popover
         id={circleId}
         open={circleOpen}
@@ -240,7 +264,6 @@ const Header = () => {
         </div>
       </Popover>
 
-      {/* Notifications Popover */}
       <Popover
         id={notificationId}
         open={notificationOpen}
@@ -303,6 +326,70 @@ const Header = () => {
           </div>
         </div>
       </Popover>
+
+      
+      <Popover
+  id={profileId}
+  open={profileOpen}
+  anchorEl={profileAnchorEl}
+  onClose={handleCloseProfile}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'right',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'right',
+  }}
+  PaperProps={{
+    className: 'profile-popover-paper'
+  }}
+>
+  <div className="profile-container">
+      {/* <div className="profile-header">
+        <h3>User Profile</h3>
+      </div> */}
+    
+    <div className="profile-content">
+      <div className="profile-item">
+        <div className="profile-icon">
+          <User size={18} />
+        </div>
+        <div>
+          <span className="profile-info-label">Name</span>
+          <div className="profile-info">{userProfile.name}</div>
+        </div>
+      </div>
+      
+      <div className="profile-item">
+        <div className="profile-icon">
+          <Phone size={18} />
+        </div>
+        <div>
+          <span className="profile-info-label">Phone</span>
+          <div className="profile-info">{userProfile.phone}</div>
+        </div>
+      </div>
+      
+      <div className="profile-item">
+        <div className="profile-icon">
+          <Mail size={18} />
+        </div>
+        <div>
+          <span className="profile-info-label">Email</span>
+          <div className="profile-info">{userProfile.email}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div className="profile-footer">
+      <button className="logout-button" onClick={handleLogout}>
+        <LogOut size={18} />
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</Popover>
     </header>
   );
 };

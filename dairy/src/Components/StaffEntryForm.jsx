@@ -4,6 +4,7 @@ import "./StaffEntryForm.css";
 
 function StaffEntryForm({ onStaffAdded }) {
   const [formData, setFormData] = useState({
+    employeeId: '',
     name: '',
     phoneNumber: '',
     email: '',
@@ -21,16 +22,24 @@ function StaffEntryForm({ onStaffAdded }) {
       friday: true,
       saturday: false,
       sunday: false
-    }
+    },
+    password: '' // New field for password
   });
-  
+
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Function to generate the next employee ID
+  const generateEmployeeId = () => {
+    const existingStaff = JSON.parse(localStorage.getItem('staffMembers')) || [];
+    const employeeCount = existingStaff.length + 1;
+    return `Facturo${String(employeeCount).padStart(2, '0')}`;
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     if (name.startsWith('day-')) {
       const day = name.replace('day-', '');
       setFormData(prevState => ({
@@ -50,66 +59,65 @@ function StaffEntryForm({ onStaffAdded }) {
 
   const validateForm = () => {
     const errors = [];
-    
+
     if (!formData.name.trim()) errors.push('Name is required');
     if (!formData.phoneNumber.trim()) errors.push('Phone number is required');
     if (!formData.email.trim()) errors.push('Email is required');
-
+    if (!formData.password.trim()) errors.push('Password is required');
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (formData.email && !emailRegex.test(formData.email)) {
       errors.push('Please enter a valid email address');
     }
-    
-  
+
     const phoneRegex = /^\d{10}$/;
     if (formData.phoneNumber && !phoneRegex.test(formData.phoneNumber.replace(/\D/g, ''))) {
       errors.push('Please enter a valid 10-digit phone number');
     }
-    
+
     if (errors.length > 0) {
       setErrorMessage(errors.join('. '));
       return false;
     }
-    
+
     return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       setSuccessMessage('');
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
-      
       const workingHours = `${formData.startTime} - ${formData.endTime}`;
 
       const workingDaysArray = Object.entries(formData.workingDays)
         .filter(([_, isWorking]) => isWorking)
         .map(([day]) => day.charAt(0).toUpperCase() + day.slice(1));
-      
+
       const staffMember = {
         id: uuidv4(),
+        employeeId: formData.employeeId, // Employee ID
         ...formData,
         workingHours,
         workingDaysArray,
         createdAt: new Date().toISOString()
       };
-      
-  
+
       const existingStaff = JSON.parse(localStorage.getItem('staffMembers')) || [];
       localStorage.setItem('staffMembers', JSON.stringify([...existingStaff, staffMember]));
-      
-      
+
       if (typeof onStaffAdded === 'function') {
         onStaffAdded(staffMember);
       }
-     
+
       setFormData({
+        employeeId: generateEmployeeId(),
         name: '',
         phoneNumber: '',
         email: '',
@@ -127,17 +135,17 @@ function StaffEntryForm({ onStaffAdded }) {
           friday: true,
           saturday: false,
           sunday: false
-        }
+        },
+        password: '' // Reset password field
       });
-      
+
       setSuccessMessage('Staff member added successfully!');
       setErrorMessage('');
-      
-     
+
       setTimeout(() => {
         setSuccessMessage('');
       }, 3000);
-      
+
     } catch (error) {
       setErrorMessage('An error occurred while saving the staff member.');
       console.error('Error saving staff member:', error);
@@ -145,6 +153,14 @@ function StaffEntryForm({ onStaffAdded }) {
       setIsSubmitting(false);
     }
   };
+
+  // Initialize Employee ID when the component is mounted
+  useEffect(() => {
+    setFormData(prevData => ({
+      ...prevData,
+      employeeId: generateEmployeeId()
+    }));
+  }, []);
 
   return (
     <div className="staff-form-container">
@@ -175,7 +191,7 @@ function StaffEntryForm({ onStaffAdded }) {
             <h3 className="section-header">Personal Information</h3>
             <div className="section-divider"></div>
           </div>
-          
+
           <div className="form-group">
             <label className="form-label" htmlFor="name">
               Full Name <span className="required-indicator">*</span>
@@ -189,6 +205,21 @@ function StaffEntryForm({ onStaffAdded }) {
               className="form-input"
               placeholder="Full Name"
               required
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label" htmlFor="employeeId">
+              Employee ID <span className="required-indicator">*</span>
+            </label>
+            <input
+              type="text"
+              id="employeeId"
+              name="employeeId"
+              value={formData.employeeId} // Employee ID from state
+              readOnly
+              className="form-input"
+              placeholder="Auto-generated Employee ID"
             />
           </div>
           
@@ -207,7 +238,7 @@ function StaffEntryForm({ onStaffAdded }) {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label className="form-label" htmlFor="email">
               Email ID <span className="required-indicator">*</span>
@@ -224,6 +255,23 @@ function StaffEntryForm({ onStaffAdded }) {
             />
           </div>
           
+          {/* Password Field */}
+          <div className="form-group">
+            <label className="form-label" htmlFor="password">
+              Password <span className="required-indicator">*</span>
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+
           <div className="form-group">
             <label className="form-label" htmlFor="role">
               Role
@@ -239,7 +287,6 @@ function StaffEntryForm({ onStaffAdded }) {
               <option value="chef">Chef</option>
               <option value="worker">Worker</option>
               <option value="manager">Manager</option>
-              {/* <option value="host">Host/Hostess</option> */}
             </select>
           </div>
           
@@ -248,7 +295,7 @@ function StaffEntryForm({ onStaffAdded }) {
             <h3 className="section-header">Working Schedule</h3>
             <div className="section-divider"></div>
           </div>
-          
+
           <div className="form-group">
             <label className="form-label">
               Working Hours
@@ -311,7 +358,6 @@ function StaffEntryForm({ onStaffAdded }) {
             </div>
           </div>
 
-       
           <div className="col-span-2">
             <h3 className="section-header">Banking & Documents</h3>
             <div className="section-divider"></div>
@@ -348,7 +394,6 @@ function StaffEntryForm({ onStaffAdded }) {
           </div>
         </div>
 
-   
         <button
           type="submit"
           className="submit-button"

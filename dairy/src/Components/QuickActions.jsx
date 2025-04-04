@@ -11,22 +11,21 @@ const QuickActions = () => {
     
   ];
 
-  // State to store user data with online status
+
   const [users, setUsers] = useState([]);
 
-  // Function to randomly assign online status
+
   const assignRandomStatus = () => {
     return randomNames.map(user => ({
       ...user,
-      isOnline: Math.random() > 0.4 // 60% chance of being online
+      isOnline: Math.random() > 0.4 
     }));
   };
 
-  // Initialize and refresh statuses periodically
   useEffect(() => {
     setUsers(assignRandomStatus());
     
-    // Update statuses every 30 seconds
+
     const intervalId = setInterval(() => {
       setUsers(assignRandomStatus());
     }, 30000);

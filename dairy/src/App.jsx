@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import Header from "./Components/Header";
 import Customer from "./Components/Customer";
@@ -13,29 +13,31 @@ import Inventory from "./Components/Inventory";
 import Bill from "./Components/Bill";
 import Table from "./Components/Table";
 import TableSelectionPopup from "./Components/TableSelectionPopup";
-import SignUp from "./Components/SignUp";
-import Login from "./Components/Login";
+import PrivateRoute from './Components/PrivateRoute';
+import LoginForm from "./Components/LoginForm";
+import TableEntryForm from "./Components/TableEntryForm";
+import Support from "./Components/Support";
 
 import "./App.css";
 
 const App = () => {
   return (
     <Router>
-      <MainLayout />
+      <AppRoutes />
     </Router>
   );
 };
 
-const MainLayout = () => {
+const AppRoutes = () => {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/SignUp" || location.pathname === "/Login";
+  const isLoginPage = location.pathname === "/login" || location.pathname === "/";
 
   return (
     <>
-      {isAuthPage ? (
+      {isLoginPage ? (
         <Routes>
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       ) : (
         <div className="app-container">
@@ -55,6 +57,9 @@ const MainLayout = () => {
                 <Route path="/Bill" element={<Bill />} />
                 <Route path="/Table" element={<Table />} />
                 <Route path="/TableSelectionPopup" element={<TableSelectionPopup />} />
+                <Route path="/TableEntryForm" element={<TableEntryForm />} />
+                <Route path="/Support" element={<Support />} />
+                <Route path="*" element={<Navigate to="/login" replace />} />
               </Routes>
             </div>
           </div>

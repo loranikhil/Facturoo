@@ -17,6 +17,7 @@ const Customer = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [tables, setTables] = useState([]);
   const [showTableSelector, setShowTableSelector] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState({});
   
 
   const staticFoodItems = [
@@ -34,7 +35,7 @@ const Customer = () => {
   useEffect(() => {
     const loadTables = () => {
       const savedTables = JSON.parse(localStorage.getItem("tables")) || [];
-      // If no tables in localStorage, create default tables (1-20)
+   
       if (savedTables.length === 0) {
         const defaultTables = Array.from({ length: 20 }, (_, i) => ({
           id: i + 1,
@@ -76,6 +77,25 @@ const Customer = () => {
       window.removeEventListener('storage', loadMenuItems);
     };
   }, []);
+
+  useEffect(() => {
+    const initialImagesLoaded = {};
+    menuItems.forEach(item => {
+      initialImagesLoaded[item.id] = false;
+    });
+    setImagesLoaded(initialImagesLoaded);
+
+    
+    const timer = setTimeout(() => {
+      const loadedImages = {};
+      menuItems.forEach(item => {
+        loadedImages[item.id] = true;
+      });
+      setImagesLoaded(loadedImages);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [menuItems]);
 
   useEffect(() => {
     let timer;
@@ -235,7 +255,7 @@ const Customer = () => {
 
   const navigate = useNavigate();
   const goToMyOrders = () => {
-    navigate("/Myorders"); // Navigate to MyOrders page
+    navigate("/Myorders"); 
   };
   
   const handleTableSelect = (tableNum) => {
@@ -394,6 +414,21 @@ const Customer = () => {
     );
   };
 
+  const LazyImage = ({ src, alt, itemId }) => {
+    return (
+      <div className="image-container">
+        {!imagesLoaded[itemId] && (
+          <div className="image-placeholder pulse-animation"></div>
+        )}
+        <img 
+          src={src} 
+          alt={alt} 
+          style={{ opacity: imagesLoaded[itemId] ? 1 : 0, transition: 'opacity 0.3s ease-in' }}
+        />
+      </div>
+    );
+  };
+
   return (
     <div className="customer-page">
       <div className="top-bar">
@@ -468,7 +503,7 @@ const Customer = () => {
                   {filteredFoodItems.map(item => (
                     <div key={item.id} className="food-card">
                       <div className="food-image">
-                        <img src={item.image} alt={item.name} />
+                        <LazyImage  src={item.image} alt={item.name} itemId={item.id}  />
                         <div className="food-category">{item.category}</div>
                       </div>
                       <div className="food-info">
@@ -555,6 +590,8 @@ const Customer = () => {
           {showCart && <div className="overlay" onClick={() => setShowCart(false)}></div>}
         </>
       )}
+
+     
     </div>
   );
 };

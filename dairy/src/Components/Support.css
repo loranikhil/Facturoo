@@ -1,0 +1,230 @@
+:root {
+    --zmt-primary-color: #e23744;
+    --zmt-secondary-color: #1c1c1c;
+    --zmt-accent-color: #ff7e8b;
+    --zmt-text-color: #333333;
+    --zmt-light-gray: #f8f8f8;
+    --zmt-medium-gray: #eaeaea;
+    --zmt-dark-gray: #757575;
+    --zmt-border-color: #e0e0e0;
+    --zmt-white: #ffffff;
+    --zmt-error-color: #d32f2f;
+    --zmt-success-color: #2e7d32;
+    --zmt-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .zmt-support-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    color: var(--zmt-text-color);
+    background-color: var(--zmt-light-gray);
+  }
+  
+ 
+  .zmt-hero-banner {
+    background-image: url('https://bk.asia-city.com/sites/default/files/slideshow_5.jpg');
+    
+    padding: 65px 40px;
+    text-align: center;
+    color: var(--white);
+    border-radius: 0 0 0 o;
+    margin: 15px 20px 20px 20px;
+    border-radius: 10px;
+  }
+  
+  .zmt-hero-title {
+    color: var(--zmt-white);
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    max-width: 800px;
+  }
+  
+
+  .zmt-content-wrapper {
+    max-width: 1200px;
+    margin: -40px auto 60px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    position: relative;
+  }
+  
+  @media (max-width: 900px) {
+    .zmt-content-wrapper {
+      grid-template-columns: 1fr;
+      margin-top: -20px;
+    }
+    
+    .zmt-hero-title {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .zmt-hero-banner {
+      height: 180px;
+    }
+    
+    .zmt-hero-title {
+      font-size: 1.6rem;
+    }
+  }
+
+  .zmt-form-container {
+    background-color: var(--zmt-white);
+    border-radius: 8px;
+    box-shadow: var(--zmt-shadow);
+    padding: 30px;
+  }
+  
+  .zmt-form-heading {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--zmt-secondary-color);
+  }
+  
+  .zmt-form-description {
+    color: var(--zmt-dark-gray);
+    margin-bottom: 24px;
+  }
+
+  .zmt-contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .zmt-form-group {
+    margin-bottom: 20px;
+  }
+  
+  .zmt-form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .zmt-form-input,
+  .zmt-form-select,
+  .zmt-form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--zmt-border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.2s;
+  }
+  
+  .zmt-form-input:focus,
+  .zmt-form-select:focus,
+  .zmt-form-textarea:focus {
+    outline: none;
+    border-color: var(--zmt-primary-color);
+  }
+  
+  .zmt-input-error {
+    border-color: var(--zmt-error-color);
+  }
+  
+  .zmt-error-message {
+    display: block;
+    color: var(--zmt-error-color);
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+  
+  .zmt-success-message {
+    background-color: rgba(46, 125, 50, 0.1);
+    color: var(--zmt-success-color);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--zmt-success-color);
+  }
+ 
+  .zmt-submit-button {
+    background-color: var(--zmt-primary-color);
+    color: var(--zmt-white);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-start;
+  }
+  
+  .zmt-submit-button:hover {
+    background-color: #cc6b11;
+  }
+  
+  .zmt-submit-button:disabled {
+    background-color: var(--zmt-medium-gray);
+    cursor: not-allowed;
+  }
+  
+  .zmt-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .zmt-help-section {
+    background-color: var(--zmt-white);
+    border-radius: 8px;
+    box-shadow: var(--zmt-shadow);
+    padding: 24px;
+  }
+  
+  .zmt-section-heading {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--zmt-secondary-color);
+  }
+  
+  .zmt-section-text {
+    color: var(--zmt-dark-gray);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  
+  .zmt-action-link {
+    display: inline-block;
+    color: var(--zmt-primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+  
+  .zmt-action-link:hover {
+    text-decoration: none;
+  }
+  
+  .zmt-safety-section {
+    border-top: 4px solid #ff9800;
+  }
+  
+  .zmt-order-section {
+    border-top: 4px solid #2196f3;
+  }
+  
+  .zmt-app-button {
+    display: inline-block;
+    background-color: var(--zmt-secondary-color);
+    color: var(--zmt-white);
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .zmt-app-button:hover {
+    background-color: #333333;
+  }
