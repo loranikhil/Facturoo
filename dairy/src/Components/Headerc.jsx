@@ -1,20 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Sun, Moon, MapPin, Zap, BarChart2, Bell, MessageCircle, User } from 'lucide-react';
-import { SearchOutlined } from '@mui/icons-material';
-import { Popover, Tooltip } from '@mui/material';
-import { ImUsers } from "react-icons/im";
-import { IoIosPersonAdd } from "react-icons/io";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Sun, Moon, MapPin, Zap, BarChart2, Bell, MessageCircle, User, LogOut, Phone, Mail } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { Popover, Tooltip } from '@mui/material';
+import { IoIosPersonAdd } from "react-icons/io";
+import { ImUsers } from "react-icons/im";
 
 import './Header.css';
 
+
 const Header = () => {
+  const navigate = useNavigate();
   const [isDark, setIsDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [circleAnchorEl, setCircleAnchorEl] = useState(null);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const searchInputRef = useRef(null);
+  
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -23,11 +28,31 @@ const Header = () => {
       time: "10 minutes ago",
       read: false
     },
+    {
+      id: 2,
+      title: "System",
+      message: "New update available",
+      time: "1 hour ago",
+      read: false
+    },
+    {
+      id: 3,
+      title: "Admin",
+      message: "Monthly report is ready",
+      time: "Yesterday",
+      read: true
+    }
   ]);
-  const navigate = useNavigate();
+
+  const userProfile = {
+    name: "Nikhil",
+    phone: "+91 9999000000",
+    email: "nik@gmail.com"
+  };
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -39,13 +64,30 @@ const Header = () => {
     setIsDark(prefersDark);
     document.body.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
   }, []);
+  
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
     document.body.setAttribute('data-theme', !isDark ? 'dark' : 'light');
   };
-
   
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+    if (!isSearchOpen && searchInputRef.current) {
+      setTimeout(() => {
+        searchInputRef.current.focus();
+      }, 300);
+    }
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const handleCircleClick = (event) => {
     setCircleAnchorEl(event.currentTarget);
@@ -55,12 +97,27 @@ const Header = () => {
     setNotificationAnchorEl(event.currentTarget);
   };
 
+  const handleProfileClick = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+
   const handleCloseCircle = () => {
     setCircleAnchorEl(null);
   };
 
   const handleCloseNotifications = () => {
     setNotificationAnchorEl(null);
+  };
+
+  const handleCloseProfile = () => {
+    setProfileAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    console.log("Logging out...");
+    
+    navigate('/login');
+    handleCloseProfile();
   };
 
   const markAsRead = (notificationId) => {
@@ -75,30 +132,31 @@ const Header = () => {
     setNotifications(notifications.map(notification => ({ ...notification, read: true })));
   };
 
-  const deleteNotification = (notificationId) => {
+  const deleteNotification = (notificationId, event) => {
+    event.stopPropagation();
     setNotifications(notifications.filter(notification => notification.id !== notificationId));
   };
+
   const handleQuickActionsClick = () => {
     console.log("Navigating to Quick Actions");
     navigate('/quick-actions');
   };
-  
+
   const circleOpen = Boolean(circleAnchorEl);
   const circleId = circleOpen ? 'circle-popover' : undefined;
   
   const notificationOpen = Boolean(notificationAnchorEl);
   const notificationId = notificationOpen ? 'notification-popover' : undefined;
+
+  const profileOpen = Boolean(profileAnchorEl);
+  const profileId = profileOpen ? 'profile-popover' : undefined;
   
   const unreadCount = notifications.filter(notification => !notification.read).length;
 
   const navigationItems = [
     { id: 'location', icon: <MapPin />, label: 'Location' },
-    { id: 'theme', icon: isDark ? <Sun /> : <Moon />, label: isDark ? 'Light Mode' : 'Dark Mode', onClick: toggleTheme },
-    { id: 'circle', icon: <AddCircleOutlineIcon />, label: 'Circle', onClick: handleCircleClick },
     { id: 'quick-actions', icon: <Zap />, label: 'QuickActions', onClick: handleQuickActionsClick },
-    
     { id: 'sales', icon: <BarChart2 />, label: 'Sales' },
-    
     { 
       id: 'notifications', 
       icon: <Bell />, 
@@ -107,100 +165,104 @@ const Header = () => {
       badge: unreadCount > 0 ? unreadCount : null
     },
     { id: 'support', icon: <MessageCircle />, label: 'Support' },
-    { id: 'user', icon: <User />, label: 'User Profile' }
+    { id: 'theme', icon: isDark ? <Sun /> : <Moon />, label: isDark ? 'Light Mode' : 'Dark Mode', onClick: toggleTheme },
+    { id: 'circle', icon: <IoIosPersonAdd />, label: 'Circle', onClick: handleCircleClick },
+    { id: 'user', icon: <User />, label: 'User Profile', onClick: handleProfileClick }
   ];
 
   return (
-    <header className={`header theme-transition ${scrolled ? 'scrolled' : ''}`}>
+    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
         <div className="header-content">
           <div className="left-section">
-            <a href="/" className="logo theme-transition">
-              Facturo
+            <a href="/" className="logo">
+              <span className="logo-text">Facturo</span>
+              <span className="logo-dot"></span>
             </a>
-            <div
-      className="search-wrapper"
-      onMouseEnter={() => setIsSearchOpen(true)}
-      onMouseLeave={() => setIsSearchOpen(false)}
-    >
-      <button
-        className="icon-button search-toggle"
-        aria-label="Toggle search"
-        onClick={() => setIsSearchOpen((prev) => !prev)}
-      >
-        <SearchOutlined />
-      </button>
-      <div className={`search-bar ${isSearchOpen ? "open" : ""}`}>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="search-input"
-          aria-label="Search input"
-          autoFocus={isSearchOpen} 
-        />
-      </div>
-    </div>
+            
+            <div className="search-wrapper">
+              <button
+                className="search-toggle"
+                aria-label="Toggle search"
+                onClick={toggleSearch}
+              >
+                <Search />
+              </button>
+              <div className={`search-bar ${isSearchOpen ? 'open' : ''}`}>
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Search..."
+                  className="search-input"
+                  aria-label="Search input"
+                />
+              </div>
+            </div>
           </div>
 
-          <nav className="nav-container" role="navigation">
+          <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <nav className={`nav-container ${isMenuOpen ? 'menu-open' : ''}`} role="navigation">
             {navigationItems.map(({ id, icon, label, onClick, badge }) => (
               <div key={id} className="nav-item">
                 <button
-                  className={`icon-button ${id === 'notifications' && badge ? 'has-badge' : ''}`}
+                  className={`icon-button ${badge ? 'has-badge' : ''}`}
                   aria-label={label}
-                  onClick={onClick || (() => console.log(`${label} clicked`))}
+                  onClick={onClick || (() => {})}
+                  title={label}
                 >
                   {icon}
                   {badge != null && (
                     <span className="badge">{badge}</span>
                   )}
                 </button>
-                <span className="tooltip" role="tooltip">
-                  {label}
-                </span>
+                <span className="tooltip">{label}</span>
               </div>
             ))}
           </nav>
         </div>
       </div>
 
-      
-<Popover
-  id={circleId}
-  open={circleOpen}
-  anchorEl={circleAnchorEl}
-  onClose={handleCloseCircle}
-  anchorOrigin={{
-    vertical: 'bottom',
-    horizontal: 'center',
-  }}
-  transformOrigin={{
-    vertical: 'top',
-    horizontal: 'center',
-  }}
-  PaperProps={{
-    className: 'popover-paper'
-  }}
->
-  <div className="icon-popover-container">
-    <Tooltip title="Add Manager" placement="bottom">
-      <button 
-        className="icon-popover-button"
-        onClick={() => console.log('Add Manager clicked')}
+      <Popover
+        id={circleId}
+        open={circleOpen}
+        anchorEl={circleAnchorEl}
+        onClose={handleCloseCircle}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        PaperProps={{
+          className: 'popover-paper'
+        }}
       >
-        <IoIosPersonAdd />
-      </button>
-    </Tooltip>
-    <Tooltip title="Add Staff" placement="bottom">
-      <button 
-        className="icon-popover-button"
-        onClick={() => console.log('Add Staff clicked')}
-      >
-        <ImUsers />
-      </button>
-    </Tooltip>
-  </div>
-</Popover>
+        <div className="icon-popover-container">
+          <Tooltip title="Add Manager" placement="bottom">
+            <button 
+              className="icon-popover-button"
+              onClick={() => console.log('Add Manager clicked')}
+            >
+              <IoIosPersonAdd />
+            </button>
+          </Tooltip>
+          <Tooltip title="Add Staff" placement="bottom">
+            <button 
+              className="icon-popover-button"
+              onClick={() =>  navigate('/StaffEntryForm')}
+            >
+              <ImUsers />
+            </button>
+          </Tooltip>
+        </div>
+      </Popover>
 
       <Popover
         id={notificationId}
@@ -209,11 +271,11 @@ const Header = () => {
         onClose={handleCloseNotifications}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'right',
         }}
         PaperProps={{
           className: 'notification-popover-paper'
@@ -247,10 +309,8 @@ const Header = () => {
                   </div>
                   <button 
                     className="notification-delete"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deleteNotification(notification.id);
-                    }}
+                    onClick={(e) => deleteNotification(notification.id, e)}
+                    aria-label="Delete notification"
                   >
                     &times;
                   </button>
@@ -266,6 +326,66 @@ const Header = () => {
           </div>
         </div>
       </Popover>
+
+      
+      <Popover
+  id={profileId}
+  open={profileOpen}
+  anchorEl={profileAnchorEl}
+  onClose={handleCloseProfile}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'right',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'right',
+  }}
+  PaperProps={{
+    className: 'profile-popover-paper'
+  }}
+>
+  <div className="profile-container"> 
+    <div className="profile-content">
+      <div className="profile-item">
+        <div className="profile-icon">
+          <User size={18} />
+        </div>
+        <div>
+          <span className="profile-info-label">Name</span>
+          <div className="profile-info">{userProfile.name}</div>
+        </div>
+      </div>
+      
+      <div className="profile-item">
+        <div className="profile-icon">
+          <Phone size={18} />
+        </div>
+        <div>
+          <span className="profile-info-label">Phone</span>
+          <div className="profile-info">{userProfile.phone}</div>
+        </div>
+      </div>
+      
+      <div className="profile-item">
+        <div className="profile-icon">
+          <Mail size={18} />
+        </div>
+        <div>
+          <span className="profile-info-label">Email</span>
+          <div className="profile-info">{userProfile.email}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div className="profile-footer">
+      <button className="logout-button" onClick={handleLogout}>
+        <LogOut size={18} />
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</Popover>
     </header>
   );
 };

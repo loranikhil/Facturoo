@@ -5,13 +5,13 @@ import { Search } from 'lucide-react';
 import { Popover, Tooltip } from '@mui/material';
 import { IoIosPersonAdd } from "react-icons/io";
 import { ImUsers } from "react-icons/im";
+import { useTheme } from './ThemeContext'; // Import the theme hook
 
 import './Header.css';
 
-
 const Header = () => {
   const navigate = useNavigate();
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, toggleTheme } = useTheme(); // Use the theme context
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,23 +58,12 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDark(prefersDark);
-    document.body.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-  }, []);
   
   useEffect(() => {
     if (isSearchOpen && searchInputRef.current) {
       searchInputRef.current.focus();
     }
   }, [isSearchOpen]);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.body.setAttribute('data-theme', !isDark ? 'dark' : 'light');
-  };
   
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -170,8 +159,11 @@ const Header = () => {
     { id: 'user', icon: <User />, label: 'User Profile', onClick: handleProfileClick }
   ];
 
+  // Rest of the component remains the same
+  
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+      {/* The rest of your JSX remains unchanged */}
       <div className="header-container">
         <div className="header-content">
           <div className="left-section">
@@ -227,6 +219,7 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Popovers remain unchanged */}
       <Popover
         id={circleId}
         open={circleOpen}
@@ -256,7 +249,7 @@ const Header = () => {
           <Tooltip title="Add Staff" placement="bottom">
             <button 
               className="icon-popover-button"
-              onClick={() =>  navigate('/StaffEntryForm')}
+              onClick={() => navigate('/StaffEntryForm')}
             >
               <ImUsers />
             </button>
@@ -327,69 +320,64 @@ const Header = () => {
         </div>
       </Popover>
 
-      
       <Popover
-  id={profileId}
-  open={profileOpen}
-  anchorEl={profileAnchorEl}
-  onClose={handleCloseProfile}
-  anchorOrigin={{
-    vertical: 'bottom',
-    horizontal: 'right',
-  }}
-  transformOrigin={{
-    vertical: 'top',
-    horizontal: 'right',
-  }}
-  PaperProps={{
-    className: 'profile-popover-paper'
-  }}
->
-  <div className="profile-container">
-      {/* <div className="profile-header">
-        <h3>User Profile</h3>
-      </div> */}
-    
-    <div className="profile-content">
-      <div className="profile-item">
-        <div className="profile-icon">
-          <User size={18} />
+        id={profileId}
+        open={profileOpen}
+        anchorEl={profileAnchorEl}
+        onClose={handleCloseProfile}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        PaperProps={{
+          className: 'profile-popover-paper'
+        }}
+      >
+        <div className="profile-container"> 
+          <div className="profile-content">
+            <div className="profile-item">
+              <div className="profile-icon">
+                <User size={18} />
+              </div>
+              <div>
+                <span className="profile-info-label">Name</span>
+                <div className="profile-info">{userProfile.name}</div>
+              </div>
+            </div>
+            
+            <div className="profile-item">
+              <div className="profile-icon">
+                <Phone size={18} />
+              </div>
+              <div>
+                <span className="profile-info-label">Phone</span>
+                <div className="profile-info">{userProfile.phone}</div>
+              </div>
+            </div>
+            
+            <div className="profile-item">
+              <div className="profile-icon">
+                <Mail size={18} />
+              </div>
+              <div>
+                <span className="profile-info-label">Email</span>
+                <div className="profile-info">{userProfile.email}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="profile-footer">
+            <button className="logout-button" onClick={handleLogout}>
+              <LogOut size={18} />
+              <span>Logout</span>
+            </button>
+          </div>
         </div>
-        <div>
-          <span className="profile-info-label">Name</span>
-          <div className="profile-info">{userProfile.name}</div>
-        </div>
-      </div>
-      
-      <div className="profile-item">
-        <div className="profile-icon">
-          <Phone size={18} />
-        </div>
-        <div>
-          <span className="profile-info-label">Phone</span>
-          <div className="profile-info">{userProfile.phone}</div>
-        </div>
-      </div>
-      
-      <div className="profile-item">
-        <div className="profile-icon">
-          <Mail size={18} />
-        </div>
-        <div>
-          <span className="profile-info-label">Email</span>
-          <div className="profile-info">{userProfile.email}</div>
-        </div>
-      </div>
-    </div>
-    
-    <div className="profile-footer">
-      <button className="logout-button" onClick={handleLogout}>
-        <LogOut size={18} />
-        <span>Logout</span>
-      </button>
-    </div>
-  </div>
-</Popover>
+      </Popover>
     </header>
   );
 };
