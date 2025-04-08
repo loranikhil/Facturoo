@@ -5,12 +5,12 @@ const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
 
   useEffect(() => {
-    // Load orders from localStorage
+
     const storedOrders = JSON.parse(localStorage.getItem("myOrders")) || [];
     setMyOrders(storedOrders);
-    updateBills(storedOrders); // Update bills initially
+    updateBills(storedOrders); 
 
-    // Event listener for localStorage changes
+    
     const handleStorageChange = () => {
       const updatedOrders = JSON.parse(localStorage.getItem("myOrders")) || [];
       setMyOrders(updatedOrders);
@@ -24,13 +24,13 @@ const MyOrders = () => {
     };
   }, []);
 
-  // Function to update bills based on orders
+
   const updateBills = (orders) => {
     const updatedBills = createBillsFromOrders(orders);
     localStorage.setItem("bills", JSON.stringify(updatedBills));
   };
 
-  // Function to create bills from orders
+
   const createBillsFromOrders = (orders) => {
     const tableOrders = {};
     

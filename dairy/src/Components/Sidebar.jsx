@@ -57,7 +57,7 @@ const Sidebar = () => {
     { id: "Table", icon: <Table size={20} />, label: "Manage Tables", path: "/Table" },
     { id: "sales", icon: <ShoppingCart size={20} />, label: "Orders & Sales", path: "/OrderSales" },
     { id: "Bill", icon: <CreditCard size={20} />, label: "Billing & Invoices", path: "/Bill" },
-    { id: "reports", icon: <BarChart2 size={20} />, label: "Reports & Analytics", path: "/reports" },
+    { id: "reports", icon: <BarChart2 size={20} />, label: "Reports & Analytics", path: "/ReportsAnalytics" },
     { id: "MarketingPromotions", icon: <Gift size={20} />, label: "Marketing & Promotions", path: "/MarketingPromotions" },
     // { id: "users", icon: <Home size={20} />, label: "Users & Roles", path: "/users" },
     { id: "StoreSetupBranding", icon: <Settings size={20} />, label: "Store Setup & Branding", path: "/StoreSetupBranding" },

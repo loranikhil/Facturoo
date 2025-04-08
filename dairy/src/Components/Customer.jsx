@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Search, ShoppingCart, Plus, Minus, X, Filter, ChevronRight, Clock, Home } from "lucide-react";
+import { Search, ShoppingCart, Plus, Minus, X, Filter, ChevronRight, Clock, Home, Menu } from "lucide-react";
+import { useTheme } from "./ThemeContext"; 
+ 
 import "./Customer.css";
 
 const Customer = () => {
+  const { isDark, toggleTheme } = useTheme(); 
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,6 +21,7 @@ const Customer = () => {
   const [tables, setTables] = useState([]);
   const [showTableSelector, setShowTableSelector] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState({});
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   
 
   const staticFoodItems = [
@@ -119,6 +123,14 @@ const Customer = () => {
 
   const categories = ["all", ...new Set(menuItems.map(item => item.category))];
 
+  
+  const getCategoryItemCount = (category) => {
+    if (category === "all") {
+      return menuItems.length;
+    }
+    return menuItems.filter(item => item.category === category).length;
+  };
+
   const filteredFoodItems = menuItems.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -146,9 +158,6 @@ const Customer = () => {
       setTableError("Please select a table");
       return;
     }
-    
-
-
     
     const updatedTables = tables.map(table => 
       table.number === parseInt(tableNumber) ? { ...table, isAvailable: false } : table
@@ -191,7 +200,6 @@ const Customer = () => {
   
     loadTables();
     
- 
     window.addEventListener('storage', (e) => {
       if (e.key === 'tables') {
         loadTables();
@@ -202,7 +210,6 @@ const Customer = () => {
       window.removeEventListener('storage', loadTables);
     };
   }, []);
-
 
   const addToCart = (item) => {
     if (checkoutStep !== "cart") return; 
@@ -352,7 +359,6 @@ const Customer = () => {
     );
   };
 
-
   const renderWaitingScreen = () => {
     return (
       <div className="order-status-container">
@@ -472,25 +478,6 @@ const Customer = () => {
           </div>
 
           <div className="content-container">
-            <div className="categories-section">
-              <div className="category-header">
-                <Filter size={18} />
-                <h3>Categories</h3>
-              </div>
-              <div className="category-list">
-                {categories.map(category => (
-                  <div 
-                    key={category} 
-                    className={`category-item ${activeCategory === category ? 'active' : ''}`}
-                    onClick={() => setActiveCategory(category)}
-                  >
-                    <span className="category-name">{category.charAt(0).toUpperCase() + category.slice(1)}</span>
-                    {activeCategory === category && <ChevronRight size={16} />}
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <div className="menu-section">
               <h2 className="section-title">Our Menu</h2>
               
@@ -503,7 +490,7 @@ const Customer = () => {
                   {filteredFoodItems.map(item => (
                     <div key={item.id} className="food-card">
                       <div className="food-image">
-                        <LazyImage  src={item.image} alt={item.name} itemId={item.id}  />
+                        <LazyImage src={item.image} alt={item.name} itemId={item.id} />
                         <div className="food-category">{item.category}</div>
                       </div>
                       <div className="food-info">
@@ -512,9 +499,35 @@ const Customer = () => {
                         <p className="food-description">{item.description}</p>
                         <div className="food-card-bottom">
                           <span className="food-price">Rs. {item.price.toFixed(2)}</span>
-                          <button className="add-to-cart-btn" onClick={() => addToCart(item)}>
+                          {/* <button className="add-to-cart-btn" onClick={() => addToCart(item)}>
                             <span>Add to Cart</span>
                             <Plus size={16} />
+                          </button> */}
+                          <button className={`add-to-cart-btn ${isDark ? 'dark-btn' : ''}`}>
+                            {cart.some(cartItem => cartItem.id === item.id) ? (
+                              <div className="quantity-controls">
+                                <Minus
+                                  size={14}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    removeFromCart(item.id);
+                                  }}
+                                />
+                                <span>{cart.find(cartItem => cartItem.id === item.id)?.quantity || 0}</span>
+                                <Plus
+                                  size={14}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    addToCart(item);
+                                  }}
+                                />
+                              </div>
+                            ) : (
+                              <>
+                                <span>Add to Cart</span>
+                                <Plus size={16} onClick={() => addToCart(item)} />
+                              </>
+                            )}
                           </button>
                         </div>
                       </div>
@@ -524,6 +537,48 @@ const Customer = () => {
               )}
             </div>
           </div>
+
+      
+          <div className="floating-menu-button" onClick={() => setShowCategoryMenu(!showCategoryMenu)}>
+            <Menu size={24} />
+          </div>
+
+         
+          {showCategoryMenu && (
+            <>
+              <div className="category-popup">
+                <div className="category-popup-header">
+                  <h3>Menu Categories</h3>
+                  <button onClick={() => setShowCategoryMenu(false)}>
+                    <X size={20} />
+                  </button>
+                </div>
+                <div className="category-popup-list">
+                  {categories.map(category => (
+                    <div 
+                      key={category} 
+                      className={`category-popup-item ${activeCategory === category ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveCategory(category);
+                        setShowCategoryMenu(false);
+                      }}
+                    >
+                      <div className="category-popup-item-content">
+                        <span className="category-popup-name">
+                          {category.charAt(0).toUpperCase() + category.slice(1)}
+                        </span>
+                        <span className="category-popup-count">
+                          {getCategoryItemCount(category)}
+                        </span>
+                      </div>
+                      {activeCategory === category && <ChevronRight size={16} />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="category-popup-overlay" onClick={() => setShowCategoryMenu(false)}></div>
+            </>
+          )}
 
           <div className={`cart-sidebar ${showCart ? 'show' : ''}`}>
             <div className="cart-header">
@@ -590,8 +645,6 @@ const Customer = () => {
           {showCart && <div className="overlay" onClick={() => setShowCart(false)}></div>}
         </>
       )}
-
-     
     </div>
   );
 };

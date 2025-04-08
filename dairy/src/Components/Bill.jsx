@@ -1,5 +1,6 @@
 import React from 'react';
-import { Printer } from 'lucide-react';
+import { Printer, BarChart3 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './Bill.css';
 
 const Bill = () => {
@@ -7,10 +8,14 @@ const Bill = () => {
   const [printingBill, setPrintingBill] = React.useState(null);
 
   React.useEffect(() => {
+    loadBills();
+  }, []);
+
+  const loadBills = () => {
     const orders = JSON.parse(localStorage.getItem('orders')) || [];
     const servedOrders = orders.filter(order => order.status === 'served');
     setBills(servedOrders);
-  }, []);
+  };
 
   const formatDate = (dateString) => {
     try {
@@ -43,13 +48,21 @@ const Bill = () => {
       window.print();
 
       window.addEventListener('afterprint', handleAfterPrint, { once: true });
+      
+      // Trigger a storage event to update sales data
+      notifyDataChange();
     }, 500);
   };
   
   const handleAfterPrint = () => {
-   
     document.getElementById('root').classList.remove('print-root');
     setPrintingBill(null);
+  };
+
+  // This function notifies other components about the data change
+  const notifyDataChange = () => {
+    // Dispatch a storage event to notify other components
+    window.dispatchEvent(new Event('storage'));
   };
 
   React.useEffect(() => {
@@ -74,7 +87,13 @@ const Bill = () => {
 
   return (
     <div className="bills-container">
-      <h2 className="bills-title">Bills</h2>
+      <div className="bills-header">
+        <h2 className="bills-title">Bills</h2>
+        <Link to="/OrderSales" className="sales-link">
+          <BarChart3 size={18} />
+          <span>View Sales Analytics</span>
+        </Link>
+      </div>
       
       {bills.length === 0 ? (
         <div className="empty-bills">
@@ -102,9 +121,7 @@ const Bill = () => {
                 <div>
                   <p><span className="label">Date:</span> {formatDate(bill.orderTime)}</p>
                 </div>
-                {/* <div className="bill-total-preview">
-                  <p><span className="label">Total:</span> Rs. {(calculateSubtotal(bill.items) + calculateTax(calculateSubtotal(bill.items))).toFixed(2)}</p>
-                </div> */}
+               
               </div>
 
               <div className="table-container">

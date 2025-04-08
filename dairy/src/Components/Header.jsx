@@ -5,13 +5,13 @@ import { Search } from 'lucide-react';
 import { Popover, Tooltip } from '@mui/material';
 import { IoIosPersonAdd } from "react-icons/io";
 import { ImUsers } from "react-icons/im";
-import { useTheme } from './ThemeContext'; // Import the theme hook
+import { useTheme } from './ThemeContext';
 
 import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { isDark, toggleTheme } = useTheme(); // Use the theme context
+  const { isDark, toggleTheme } = useTheme(); 
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

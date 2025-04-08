@@ -25,7 +25,6 @@ import MarketingPromotions from "./Components/MarketingPromotions";
 import StoreSetupBranding from "./Components/StoreSetupBranding";
 import StaffPerformanceAttendance from "./Components/StaffPerformanceAttendance";
 import { ThemeProvider } from "./Components/ThemeContext";
-
 import "./App.css";
 import "./theme.css";
 

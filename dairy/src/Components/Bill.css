@@ -176,7 +176,6 @@
   }
 }
 
-/* Print styles - keep as is but improve organization */
 @media print {
   body > *:not(.print-root) {
     display: none !important;
