@@ -1,0 +1,256 @@
+#chefs {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+  
+  .chefs-title {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    color: #1a237e;
+    border-bottom: 3px solid #1a237e;
+    padding-bottom: 0.75rem;
+    position: relative;
+  }
+  
+  .chefs-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background-color: #f44336;
+  }
+  
+  .no-orderss {
+    padding: 3rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-size: 1.2rem;
+    color: #757575;
+  }
+  
+  /* Order List Container */
+  #order-listss {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* Order Card */
+  .order-cards {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-cards:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Status-specific styling */
+  .preparing-statuss {
+    border-left: 5px solid #ff9800;
+  }
+  
+  .ready-statuss {
+    border-left: 5px solid #4caf50;
+    opacity: 0.8;
+  }
+  
+  .served-statuss {
+    border-left: 5px solid #9e9e9e;
+    opacity: 0.7;
+  }
+  
+  /* Order Timer */
+  .order-cards::before {
+    content: attr(data-time);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #616161;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Add timer icon */
+  .order-cards::after {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: 0.5rem;
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23616161'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .order-titles {
+    font-size: 1.4rem;
+    margin: 0 0 0.75rem 0;
+    color: #212121;
+    display: inline-block;
+    padding-right: 70px; /* Space for the timer */
+  }
+  
+  .order-statuss {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Status colors */
+  .preparing-statuss .order-statuss {
+    background-color: #fff3e0;
+    color: #ff9800;
+  }
+  
+  .ready-statuss .order-statuss {
+    background-color: #e8f5e9;
+    color: #4caf50;
+  }
+  
+  .served-statuss .order-statuss {
+    background-color: #f5f5f5;
+    color: #757575;
+  }
+  
+  /* Order Items */
+  .order-itemss {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0;
+    flex-grow: 1;
+  }
+  
+  .order-itemss-li {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .order-itemss-li:hover {
+    background-color: #eeeeee;
+  }
+  
+  .order-itemss-li span {
+    font-weight: 500;
+  }
+  
+  /* Button styles */
+  .buttonssss {
+    width: 100%;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .buttonssss:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .buttonssss:active {
+    transform: translateY(0);
+  }
+  
+  .served-btns {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .served-btns:hover {
+    background-color: #43a047;
+  }
+  
+  /* Timer Animation */
+  @keyframes countdown {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0.3; }
+  }
+  
+  .order-cards[data-urgent="true"]::before {
+    background-color: #ffebee;
+    color: #f44336;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    #chefs {
+      padding: 1.5rem;
+    }
+    
+    .chefs-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    #order-listss {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    #chefs {
+      padding: 1rem;
+    }
+    
+    .chefs-title {
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    #order-listss {
+      grid-template-columns: 1fr;
+    }
+    
+    .order-cards {
+      padding: 1.25rem;
+    }
+  }

@@ -13,6 +13,7 @@ import {
   List,
   Logs,
   TicketPercent,
+  ChefHat,
   
 } from "lucide-react";
 import "./Sidebar.css";
@@ -57,16 +58,17 @@ const Sidebar = () => {
     { id: "Table", icon: <Table size={20} />, label: "Manage Tables", path: "/Table" },
     { id: "sales", icon: <ShoppingCart size={20} />, label: "Orders & Sales", path: "/OrderSales" },
     { id: "Bill", icon: <CreditCard size={20} />, label: "Billing & Invoices", path: "/Bill" },
+    { id: "Chef", icon: < ChefHat size={20} />, label: "Chef", path: "/Chef" },
     { id: "reports", icon: <BarChart2 size={20} />, label: "Reports & Analytics", path: "/ReportsAnalytics" },
     { id: "MarketingPromotions", icon: <Gift size={20} />, label: "Marketing & Promotions", path: "/MarketingPromotions" },
-    // { id: "users", icon: <Home size={20} />, label: "Users & Roles", path: "/users" },
+    
     { id: "StoreSetupBranding", icon: <Settings size={20} />, label: "Store Setup & Branding", path: "/StoreSetupBranding" },
-    // { id: "system", icon: <Settings size={20} />, label: "System Settings", path: "/system" },
+    { id: "system", icon: <Settings size={20} />, label: "System Settings", path: "/system" },
     { id: "orders", icon: <Logs size={20} />, label: "Orders Management", path: "/orders" },
-    // { id: "stock", icon: <ShoppingCart size={20} />, label: "Stock & Inventory", path: "/stock" },
-    // { id: "sales-reports", icon: <BarChart2 size={20} />, label: "Sales Reports", path: "/sales-reports" },
-    // { id: "queries", icon: <Headphones size={20} />, label: "Queries & Feedback", path: "/queries" },
-    // { id: "refunds", icon: <CreditCard size={20} />, label: "Refunds & Cancellations", path: "/refunds" },
+    { id: "stock", icon: <ShoppingCart size={20} />, label: "Stock & Inventory", path: "/stock" },
+    { id: "sales-reports", icon: <BarChart2 size={20} />, label: "Sales Reports", path: "/sales-reports" },
+    { id: "queries", icon: <Headphones size={20} />, label: "Queries & Feedback", path: "/queries" },
+    { id: "refunds", icon: <CreditCard size={20} />, label: "Refunds & Cancellations", path: "/refunds" },
     { id: "StaffPerformanceAttendance", icon: <Trophy size={20} />, label: "Staff Performance & Attendance", path: "/StaffPerformanceAttendance" },
   ];
 

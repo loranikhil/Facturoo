@@ -130,6 +130,10 @@ const Header = () => {
     console.log("Navigating to Quick Actions");
     navigate('/quick-actions');
   };
+  const handleSalesClick = () => {
+    console.log("Navigating to Sales");
+    navigate('/OrderSales');
+  };
 
   const circleOpen = Boolean(circleAnchorEl);
   const circleId = circleOpen ? 'circle-popover' : undefined;
@@ -145,7 +149,7 @@ const Header = () => {
   const navigationItems = [
     { id: 'location', icon: <MapPin />, label: 'Location' },
     { id: 'quick-actions', icon: <Zap />, label: 'QuickActions', onClick: handleQuickActionsClick },
-    { id: 'sales', icon: <BarChart2 />, label: 'Sales' },
+    { id: 'sales', icon: <BarChart2 />, label: 'Sales', onClick: handleSalesClick },
     { 
       id: 'notifications', 
       icon: <Bell />, 
