@@ -25,6 +25,7 @@ import MarketingPromotions from "./Components/MarketingPromotions";
 import StoreSetupBranding from "./Components/StoreSetupBranding";
 import StaffPerformanceAttendance from "./Components/StaffPerformanceAttendance";
 import Chef from "./Components/Chef";
+import Bills from "./Components/Bills";
 import { ThemeProvider } from "./Components/ThemeContext";
 import "./App.css";
 import "./theme.css";
@@ -78,6 +79,7 @@ const AppRoutes = () => {
                 <Route path="/StoreSetupBranding" element={<StoreSetupBranding />} />
                 <Route path="/StaffPerformanceAttendance" element={<StaffPerformanceAttendance />} />
                 <Route path="/Chef" element={<Chef />} />
+                <Route path="/Bills" element={<Bills />} />
                 {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
               </Routes>
             </div>

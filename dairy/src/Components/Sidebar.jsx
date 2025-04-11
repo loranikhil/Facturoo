@@ -48,7 +48,7 @@ const Sidebar = () => {
   const sidebarItems = [
     { id: "customer", icon: <User size={20} />, label: "Customer", path: "/Customer" },
     { id: "MyOrders", icon: <ShoppingCart size={20} />, label: "My Orders", path: "/MyOrders" },
-    { id: "payments", icon: <CreditCard size={20} />, label: "Payments & Bills", path: "/payments" },
+    { id: "bills", icon: <CreditCard size={20} />, label: "Payments & Bills", path: "/bills" },
     { id: "OffersPage", icon: <TicketPercent size={20} />, label: "Offers & Discounts", path: "/OffersPage" },
     { id: "CustomerFunGame", icon: <Trophy size={20} />, label: "Fun Games", path: "/CustomerFunGame" },
     { id: "support", icon: <Headphones size={20} />, label: "Support & Feedback", path: "/support" },
@@ -59,7 +59,7 @@ const Sidebar = () => {
     { id: "sales", icon: <ShoppingCart size={20} />, label: "Orders & Sales", path: "/OrderSales" },
     { id: "Bill", icon: <CreditCard size={20} />, label: "Billing & Invoices", path: "/Bill" },
     { id: "Chef", icon: < ChefHat size={20} />, label: "Chef", path: "/Chef" },
-    { id: "reports", icon: <BarChart2 size={20} />, label: "Reports & Analytics", path: "/ReportsAnalytics" },
+    // { id: "reports", icon: <BarChart2 size={20} />, label: "Reports & Analytics", path: "/ReportsAnalytics" },
     { id: "MarketingPromotions", icon: <Gift size={20} />, label: "Marketing & Promotions", path: "/MarketingPromotions" },
     
     { id: "StoreSetupBranding", icon: <Settings size={20} />, label: "Store Setup & Branding", path: "/StoreSetupBranding" },
